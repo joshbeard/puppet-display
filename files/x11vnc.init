@@ -1,0 +1,23 @@
+#!/bin/sh
+
+BINARY=/usr/bin/x11vnc
+X11VNCARGS="-localhost -display :0"
+PIDFILE=/var/run/x11vnc.pid
+
+case "$1" in
+  start)
+    start-stop-daemon --start --quiet --pidfile $PIDFILE --make-pidfile --background --exec $BINARY -- $X11VNCARGS
+    ;;
+  stop)
+    start-stop-daemon --stop --quiet --pidfile $PIDFILE
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/x11vnc {start|stop|restart}"
+    exit 1
+esac
+
+exit 0
