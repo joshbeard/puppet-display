@@ -1,7 +1,7 @@
 #!/bin/sh
 
 BINARY=/usr/bin/x11vnc
-X11VNCARGS="-localhost -display :0"
+X11VNCARGS="-forever -display :0"
 PIDFILE=/var/run/x11vnc.pid
 
 case "$1" in
