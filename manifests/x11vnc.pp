@@ -16,9 +16,10 @@ class display::x11vnc {
   }
 
   file { '/etc/init.d/x11vnc':
-    source  => 'puppet:///modules/display/x11vnc.init',
+    content => template('display/x11vnc.erb'),
     mode    => '0755',
     require => Package['x11vnc'],
+    notify  => Service['x11vnc'],
   }
 
   service { 'x11vnc':
@@ -26,6 +27,5 @@ class display::x11vnc {
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    require    => File['/etc/init.d/x11vnc'],
   }
 }

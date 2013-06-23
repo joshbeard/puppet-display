@@ -21,6 +21,6 @@ class display::env {
 
   concat::fragment { 'DISPLAY':
     target  => $file,
-    content => 'export DISPLAY=:0',
+    content => "export DISPLAY=:${display::display}",
   }
 }

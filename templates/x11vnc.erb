@@ -1,12 +1,14 @@
 #!/bin/sh
 
+DISPLAY=:<%= scope.lookupvar('display::display') %>
+
 BINARY=/usr/bin/x11vnc
-X11VNCARGS="-forever -display :0"
+ARGS="-forever -display $DISPLAY"
 PIDFILE=/var/run/x11vnc.pid
 
 case "$1" in
   start)
-    start-stop-daemon --start --quiet --pidfile $PIDFILE --make-pidfile --background --exec $BINARY -- $X11VNCARGS
+    start-stop-daemon --start --quiet --pidfile $PIDFILE --make-pidfile --background --exec $BINARY -- $ARGS
     ;;
   stop)
     start-stop-daemon --stop --quiet --pidfile $PIDFILE

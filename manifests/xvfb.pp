@@ -17,9 +17,10 @@ class display::xvfb {
   }
 
   file { '/etc/init.d/xvfb':
-    source  => 'puppet:///modules/display/xvfb.init',
+    content => template('display/xvfb.erb'),
     mode    => '0755',
     require => Package['xvfb'],
+    notify  => Service['xvfb'],
   }
 
   service { 'xvfb':
@@ -27,6 +28,5 @@ class display::xvfb {
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    require    => File['/etc/init.d/xvfb'],
   }
 }
