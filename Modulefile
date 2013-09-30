@@ -8,3 +8,4 @@ license      'Apache License, Version 2.0'
 project_page 'https://github.com/p0deje/puppet-display'
 
 dependency 'ripienaar/concat', '>= 0.2.0'
+dependency 'puppetlabs/stdlib', '>= 3.0.0'
