@@ -35,7 +35,7 @@ class display(
   $width   = 1280,
   $height  = 768,
   $color   = '24+32'
-) {
+) inherits display::params {
   include env
   include x11vnc
   include xvfb
