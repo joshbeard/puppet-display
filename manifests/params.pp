@@ -1,6 +1,6 @@
 # == Class: display::params
 #
-# Exports DISPLAY variable.
+# Display parameters.
 #
 # === Authors
 #

@@ -34,6 +34,6 @@ You can configure display, resolution and color depth:
       color   => 24,   # default is "24+32" (i.e. 32-bit)
     }
 
-### Notes
+### Support
 
-1. Tested to work on Ubuntu 10.04.
+Supports RedHat and Debian families.

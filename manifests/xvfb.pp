@@ -18,7 +18,6 @@ class display::xvfb inherits display::params {
   }
 
   file { '/etc/init.d/xvfb':
-    #content => template('display/xvfb.erb'),
     content => template($display::params::xvfb_erb),
     mode    => '0755',
     require => Package['xvfb'],
