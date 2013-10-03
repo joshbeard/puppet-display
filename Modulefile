@@ -1,5 +1,5 @@
 name         'p0deje-display'
-version      '0.2.1'
+version      '0.3.0'
 source       'git://github.com/p0deje/puppet-display.git'
 author       'Alex Rodionov'
 description  'Puppet module which sets up Xvfb + x11vnc as remote display'
