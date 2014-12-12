@@ -1,9 +1,9 @@
 #!/bin/sh
 
-DISPLAY=:<%= scope.lookupvar('display::display') %>
-WIDTH=<%=    scope.lookupvar('display::width')   %>
-HEIGHT=<%=   scope.lookupvar('display::height')  %>
-COLOR=<%=    scope.lookupvar('display::color')   %>
+DISPLAY=:<%= @display %>
+WIDTH=<%= @width %>
+HEIGHT=<%= @height %>
+COLOR=<%= @color %>
 
 XVFB=/usr/bin/Xvfb
 ARGS="$DISPLAY -nolisten tcp -fbdir /var/run -screen 0 ${WIDTH}x${HEIGHT}x${COLOR}"

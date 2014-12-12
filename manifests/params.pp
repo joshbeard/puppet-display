@@ -15,6 +15,7 @@ class display::params {
   $x11vnc_package_name = 'x11vnc'
   $xvfb_erb            = "display/${lc_osfamily}/xvfb.erb"
   $x11vnc_erb          = "display/${lc_osfamily}/x11vnc.erb"
+  $xvfb_service_name   = 'xvfb'
 
   case $::osfamily {
     'redhat': {
