@@ -30,6 +30,9 @@ class display::params {
     'debian': {
       $xvfb_package_name = 'xvfb'
     }
+    'freebsd': {
+      $xvfb_package_name = 'xorg-vfbserver'
+    }
     default: {
       fail("Module ${module_name} is not supported on ${::operatingsystem}")
     }
