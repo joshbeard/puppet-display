@@ -34,12 +34,12 @@
 # Copyright 2013 Alex Rodionov.
 #
 class display::xvfb (
-  $display = 0,
-  $width   = 1280,
-  $height  = 768,
-  $color   = '24+32',
-  $runuser = 'root',
-  $fbdir   = '/tmp',
+  $display = $display::params::display,
+  $width   = $display::params::width,
+  $height  = $display::params::height,
+  $color   = $display::params::color,
+  $runuser = $display::params::runuser,
+  $fbdir   = $display::params::fbdir,
   $package = $display::params::xvfb_package_name,
   $service = $display::params::xvfb_service_name,
 ) inherits display::params {
