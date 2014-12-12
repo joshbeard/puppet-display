@@ -49,19 +49,18 @@ class display::xvfb (
     alias  => 'xvfb',
   }
 
-  file { "/etc/init.d/${service}":
+  file { 'xvfb-init':
     ensure  => 'file',
+    path    => "/etc/init.d/${service}",
     content => template($display::params::xvfb_erb),
     mode    => '0755',
     require => Package['xvfb'],
-    notify  => Service['xvfb'],
   }
 
   service { 'xvfb':
     ensure     => running,
     name       => $service,
     enable     => true,
-    hasstatus  => true,
-    hasrestart => true,
+    subscribe  => File['xvfb-init'],
   }
 }
