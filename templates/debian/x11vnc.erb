@@ -6,7 +6,7 @@ DISPLAY=:<%= @display %>
 
 BINARY=<%= @x11vnc_bin %>
 ARGS="-forever -display $DISPLAY"
-PIDFILE=/var/run/x11vnc.pid
+PIDFILE=/var/run/<%= @service %>.pid
 
 case "$1" in
   start)

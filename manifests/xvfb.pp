@@ -61,7 +61,7 @@ class display::xvfb (
 
   file { 'xvfb-init':
     ensure  => 'file',
-    path    => "/etc/init.d/${service}",
+    path    => "${display::params::init_path}/${service}",
     content => template($display::params::xvfb_erb),
     mode    => '0755',
     require => Package['xvfb'],

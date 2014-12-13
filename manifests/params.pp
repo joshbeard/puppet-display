@@ -27,13 +27,13 @@ class display::params {
   case $::osfamily {
     'redhat': {
       $xvfb_package_name = 'xorg-x11-server-Xvfb'
-      $xvfb_bin          = '/usr/bin/xvfb'
+      $xvfb_bin          = '/usr/bin/Xvfb'
       $x11vnc_bin        = '/usr/bin/x11vnc'
       $init_path         = '/etc/init.d'
     }
     'debian': {
       $xvfb_package_name = 'xvfb'
-      $xvfb_bin          = '/usr/bin/xvfb'
+      $xvfb_bin          = '/usr/bin/Xvfb'
       $x11vnc_bin        = '/usr/bin/x11vnc'
       $init_path         = '/etc/init.d'
     }
