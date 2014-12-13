@@ -68,9 +68,9 @@ class display::xvfb (
   }
 
   service { 'xvfb':
-    ensure     => running,
-    name       => $service,
-    enable     => true,
-    subscribe  => File['xvfb-init'],
+    ensure    => running,
+    name      => $service,
+    enable    => true,
+    subscribe => File['xvfb-init'],
   }
 }

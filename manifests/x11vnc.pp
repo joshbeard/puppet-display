@@ -48,9 +48,9 @@ class display::x11vnc (
   }
 
   service { 'x11vnc':
-    ensure     => running,
-    name       => $service,
-    enable     => true,
-    subscribe  => File['x11vnc-init'],
+    ensure    => running,
+    name      => $service,
+    enable    => true,
+    subscribe => File['x11vnc-init'],
   }
 }
