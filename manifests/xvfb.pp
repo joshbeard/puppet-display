@@ -43,10 +43,18 @@ class display::xvfb (
   $package = $display::params::xvfb_package_name,
   $service = $display::params::xvfb_service_name,
 ) inherits display::params {
+  validate_re($display, '\d+')
+  validate_re($width, '\d+')
+  validate_re($height, '\d+')
+  validate_re($color, '\d{2}\+\d{2}')
+  validate_string($runuser)
+  validate_absolute_path($fbdir)
+  validate_string($package)
+  validate_string($service)
+
   package { 'xvfb':
     ensure => present,
     name   => $package,
-    alias  => 'xvfb',
   }
 
   file { 'xvfb-init':

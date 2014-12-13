@@ -13,6 +13,7 @@
 class display::params {
   $lc_osfamily         = downcase($::osfamily)
   $x11vnc_package_name = 'x11vnc'
+  $x11vnc_service_name = 'x11vnc'
   $xvfb_erb            = "display/${lc_osfamily}/xvfb.erb"
   $x11vnc_erb          = "display/${lc_osfamily}/x11vnc.erb"
   $xvfb_service_name   = 'xvfb'
@@ -26,9 +27,18 @@ class display::params {
   case $::osfamily {
     'redhat': {
       $xvfb_package_name = 'xorg-x11-server-Xvfb'
+      $x11vnc_bin        = '/usr/bin/x11vnc'
+      $init_path         = '/etc/init.d'
     }
     'debian': {
       $xvfb_package_name = 'xvfb'
+      $x11vnc_bin        = '/usr/bin/x11vnc'
+      $init_path         = '/etc/init.d'
+    }
+    'freebsd': {
+      $xvfb_package_name = 'xorg-vfbserver'
+      $x11vnc_bin        = '/usr/local/bin/x11vnc'
+      $init_path         = '/usr/local/etc/rc.d'
     }
     default: {
       fail("Module ${module_name} is not supported on ${::operatingsystem}")
