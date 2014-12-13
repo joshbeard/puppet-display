@@ -34,14 +34,15 @@
 # Copyright 2013 Alex Rodionov.
 #
 class display::xvfb (
-  $display = $display::params::display,
-  $width   = $display::params::width,
-  $height  = $display::params::height,
-  $color   = $display::params::color,
-  $runuser = $display::params::runuser,
-  $fbdir   = $display::params::fbdir,
-  $package = $display::params::xvfb_package_name,
-  $service = $display::params::xvfb_service_name,
+  $display  = $display::params::display,
+  $width    = $display::params::width,
+  $height   = $display::params::height,
+  $color    = $display::params::color,
+  $runuser  = $display::params::runuser,
+  $fbdir    = $display::params::fbdir,
+  $package  = $display::params::xvfb_package_name,
+  $service  = $display::params::xvfb_service_name,
+  $xvfb_bin = $display::params::xvfb_bin,
 ) inherits display::params {
   validate_re($display, '\d+')
   validate_re($width, '\d+')
@@ -51,6 +52,7 @@ class display::xvfb (
   validate_absolute_path($fbdir)
   validate_string($package)
   validate_string($service)
+  validate_absolute_path($xvfb_bin)
 
   package { 'xvfb':
     ensure => present,

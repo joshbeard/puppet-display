@@ -28,7 +28,7 @@ HEIGHT=<%= @height %>
 COLOR=<%= @color %>
 
 ARGS="$DISPLAY -nolisten tcp -fbdir <%= @fbdir %> -screen 0 ${WIDTH}x${HEIGHT}x${COLOR}"
-exec="/usr/bin/Xvfb"
+exec="<%= @xvfb_bin %>"
 
 prog="Xvfb"
 #config="<path to major config file>"

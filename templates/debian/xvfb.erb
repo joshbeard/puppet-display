@@ -7,7 +7,7 @@ WIDTH=<%= @width %>
 HEIGHT=<%= @height %>
 COLOR=<%= @color %>
 
-XVFB=/usr/bin/Xvfb
+XVFB=<%= @xvfb_bin %>
 ARGS="$DISPLAY -nolisten tcp -fbdir <%= @fbdir %> -screen 0 ${WIDTH}x${HEIGHT}x${COLOR}"
 PIDFILE=/var/run/xvfb.pid
 

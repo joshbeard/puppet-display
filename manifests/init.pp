@@ -23,6 +23,9 @@
 # [*xvfb_service*]
 #    Name of the xvfb service. This class will create an initscript with this
 #    name and manage a service with this name.  Defaults to 'xvfb'
+# [*xvfb_bin*]
+#    Absolute path to the 'xvfb' executable. Defaults to '/usr/bin/xvfb' on
+#    RedHat and Debian systems and '/usr/local/bin/Xvfb' on FreeBSD.
 # [*x11vnc_package*]
 #    Package name for installing x11vnc. Defaults to 'x11vnc' on RedHat and
 #    Debian systems.
@@ -59,6 +62,7 @@ class display (
   $fbdir          = $display::params::fbdir,
   $xvfb_package   = $display::params::xvfb_package_name,
   $xvfb_service   = $display::params::xvfb_service_name,
+  $xvfb_bin       = $display::params::xvfb_bin,
   $x11vnc_package = $display::params::x11vnc_package_name,
   $x11vnc_service = $display::params::x11vnc_service_name,
   $x11vnc_bin     = $display::params::x11vnc_bin,
@@ -71,6 +75,7 @@ class display (
   validate_absolute_path($fbdir)
   validate_string($xvfb_package)
   validate_string($xvfb_service)
+  validate_absolute_path($xvfb_bin)
   validate_string($x11vnc_package)
   validate_string($x11vnc_service)
   validate_absolute_path($x11vnc_bin)
@@ -78,14 +83,15 @@ class display (
   include env
 
   class { 'display::xvfb':
-    display => $display,
-    width   => $width,
-    height  => $height,
-    color   => $color,
-    runuser => $runuser,
-    fbdir   => $fbdir,
-    package => $xvfb_package,
-    service => $xvfb_service,
+    display  => $display,
+    width    => $width,
+    height   => $height,
+    color    => $color,
+    runuser  => $runuser,
+    fbdir    => $fbdir,
+    package  => $xvfb_package,
+    service  => $xvfb_service,
+    xvfb_bin => $xvfb_bin,
   }
 
   class { 'display::x11vnc':
