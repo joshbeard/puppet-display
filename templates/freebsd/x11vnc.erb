@@ -19,7 +19,7 @@ rcvar="<%= @service %>_enable"
 : ${<%= @service %>_rundir="/var/run/<%= @service %>"}
 
 command="<%= @x11vnc_bin %>"
-command_args="-forever :<%= @display %>"
+command_args="-forever -display :<%= @display %>"
 pidfile="${<%= @service %>_rundir}/<%= @service %>.pid"
 
 start_cmd="x11vnc_start"
