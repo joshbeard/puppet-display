@@ -28,6 +28,7 @@ class display::x11vnc (
   $x11vnc_bin = $display::params::x11vnc_bin,
   $package    = $display::params::x11vnc_package_name,
   $service    = $display::params::x11vnc_service_name,
+  $runuser    = $display::params::runuser,
 ) inherits display::params {
   validate_re($display, '\d+')
   validate_absolute_path($x11vnc_bin)
@@ -48,9 +49,9 @@ class display::x11vnc (
   }
 
   service { 'x11vnc':
-    ensure     => running,
-    name       => $service,
-    enable     => true,
-    subscribe  => File['x11vnc-init'],
+    ensure    => running,
+    name      => $service,
+    enable    => true,
+    subscribe => File['x11vnc-init'],
   }
 }
