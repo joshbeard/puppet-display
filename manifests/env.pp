@@ -10,8 +10,9 @@
 #
 # Copyright 2013 Alex Rodionov.
 #
-class display::env {
-  $file = '/etc/profile.d/vagrant_display.sh'
+class display::env (
+  $file = '/etc/profile.d/vagrant_display.sh',
+) {
 
   concat { $file:
     owner => root,
