@@ -40,6 +40,9 @@ class display::params {
       $x11vnc_bin        = '/usr/local/bin/x11vnc'
       $init_path         = '/usr/local/etc/rc.d'
     }
+    'freebsd': {
+      $xvfb_package_name = 'xorg-vfbserver'
+    }
     default: {
       fail("Module ${module_name} is not supported on ${::operatingsystem}")
     }
