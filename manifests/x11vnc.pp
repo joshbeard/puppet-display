@@ -14,6 +14,8 @@
 # [*service*]
 #   Name of the x11vnc service.  This class will create an init script with the
 #   name and manage a service by this name. Defaults to 'x11vnc'
+# [*runuser*]
+#   User to run xvfb as. Default is `'root'`
 #
 # === Authors
 #
