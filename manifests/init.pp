@@ -94,7 +94,7 @@ class display (
   if $display_env {
     class { 'display::env':
       display => $display,
-      file    => $display_env_path_path,
+      file    => $display_env_path,
     }
   }
 
