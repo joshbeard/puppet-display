@@ -89,7 +89,10 @@ class display (
   validate_string($x11vnc_service)
   validate_absolute_path($x11vnc_bin)
   validate_bool($display_env)
-  validate_absolute_path($display_env_path)
+
+  if $display_env_path {
+    validate_absolute_path($display_env_path)
+  }
 
   if $display_env {
     class { 'display::env':
