@@ -80,7 +80,9 @@ class display (
   validate_string($x11vnc_service)
   validate_absolute_path($x11vnc_bin)
 
-  include env
+  class { 'display::env':
+    display => $display,
+  }
 
   class { 'display::xvfb':
     display  => $display,
