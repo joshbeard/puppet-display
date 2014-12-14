@@ -12,6 +12,9 @@ together.
 `xvfb` and `x11vnc` can be managed individually using their own classes if
 desired.
 
+Additionally, a profile.d helper script can be managed that exports the
+`DISPLAY` environment variable.
+
 ### Example
 
 #### Manage `xvfb` and `x11vnc` with default parameters:
@@ -126,6 +129,16 @@ class { 'display::x11vnc':
 
   Absolute path to the `x11vnc` executable. Defaults to `/usr/bin/x11vnc` on
   RedHat and Debian systems and `/usr/local/bin/x11vnc` on FreeBSD.
+
+##### `display_env`
+
+  Boolean. Provide a profile.d script to export the `DISPLAY` variable.
+  Defaults to `true`.
+
+##### `display_env_path`
+  Absolute path to place a profile.d script that exports the `DISPLAY`
+  variable.  Defaults to `/etc/profile.d/vagrant_display.sh`
+  This is only effective if 'profiled' is `true`.
 
 #### Class: display::xvfb
 

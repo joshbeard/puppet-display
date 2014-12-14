@@ -35,6 +35,13 @@
 # [*x11vnc_bin*]
 #    Absolute path to the 'x11vnc' executable. Defaults to '/usr/bin/x11vnc' on
 #    RedHat and Debian systems and '/usr/local/bin/x11vnc' on FreeBSD.
+# [*display_env*]
+#    Boolean. Provide a profile.d script to export the DISPLAY variable.
+#    Defaults to true.
+# [*display_env_path*]
+#    Absolute path to place a profile.d script that exports the DISPLAY
+#    variable.  Defaults to '/etc/profile.d/vagrant_display.sh
+#    This is only effective if 'profiled' is true.
 #
 # === Examples
 #
@@ -54,18 +61,20 @@
 # Copyright 2013 Alex Rodionov.
 #
 class display (
-  $display        = $display::params::display,
-  $width          = $display::params::width,
-  $height         = $display::params::height,
-  $color          = $display::params::color,
-  $runuser        = $display::params::runuser,
-  $fbdir          = $display::params::fbdir,
-  $xvfb_package   = $display::params::xvfb_package_name,
-  $xvfb_service   = $display::params::xvfb_service_name,
-  $xvfb_bin       = $display::params::xvfb_bin,
-  $x11vnc_package = $display::params::x11vnc_package_name,
-  $x11vnc_service = $display::params::x11vnc_service_name,
-  $x11vnc_bin     = $display::params::x11vnc_bin,
+  $display          = $display::params::display,
+  $width            = $display::params::width,
+  $height           = $display::params::height,
+  $color            = $display::params::color,
+  $runuser          = $display::params::runuser,
+  $fbdir            = $display::params::fbdir,
+  $xvfb_package     = $display::params::xvfb_package_name,
+  $xvfb_service     = $display::params::xvfb_service_name,
+  $xvfb_bin         = $display::params::xvfb_bin,
+  $x11vnc_package   = $display::params::x11vnc_package_name,
+  $x11vnc_service   = $display::params::x11vnc_service_name,
+  $x11vnc_bin       = $display::params::x11vnc_bin,
+  $display_env      = true,
+  $display_env_path = undef,
 ) inherits display::params {
   validate_re($display, '\d+')
   validate_re($width, '\d+')
@@ -79,9 +88,14 @@ class display (
   validate_string($x11vnc_package)
   validate_string($x11vnc_service)
   validate_absolute_path($x11vnc_bin)
+  validate_bool($display_env)
+  validate_absolute_path($display_env_path)
 
-  class { 'display::env':
-    display => $display,
+  if $display_env {
+    class { 'display::env':
+      display => $display,
+      file    => $display_env_path_path,
+    }
   }
 
   class { 'display::xvfb':
@@ -103,5 +117,5 @@ class display (
     service    => $x11vnc_service,
   }
 
-  Class['xvfb'] -> Class['x11vnc'] -> Class['env']
+  Class['xvfb'] -> Class['x11vnc']
 }
