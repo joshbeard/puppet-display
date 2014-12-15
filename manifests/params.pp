@@ -44,7 +44,7 @@ class display::params {
       $init_path         = '/usr/local/etc/rc.d'
     }
     default: {
-      fail("Module ${module_name} is not supported on ${::operatingsystem}")
+      fail("Module ${module_name} is not supported on ${::osfamily}")
     }
   }
 }
