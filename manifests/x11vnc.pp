@@ -36,6 +36,7 @@ class display::x11vnc (
   validate_absolute_path($x11vnc_bin)
   validate_string($package)
   validate_string($service)
+  validate_string($runuser)
 
   package { 'x11vnc':
     ensure => present,
