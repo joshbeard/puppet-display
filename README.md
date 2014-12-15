@@ -216,3 +216,5 @@ class { 'display::x11vnc':
 ### Support
 
 Supports RedHat, Debian, and FreeBSD families.
+
+.
