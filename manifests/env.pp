@@ -20,7 +20,7 @@
 class display::env (
   $file    = '/etc/profile.d/vagrant_display.sh',
   $display = $display::params::display,
-) {
+) inherits display::params {
   validate_absolute_path($file)
 
   concat { $file:
