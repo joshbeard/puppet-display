@@ -1,24 +1,29 @@
 #!/bin/sh
 
-DISPLAY=:<%= scope.lookupvar('display::display') %>
+. /lib/lsb/init-functions
 
-BINARY=/usr/bin/x11vnc
+DISPLAY=:<%= @display %>
+
+BINARY=<%= @x11vnc_bin %>
 ARGS="-forever -display $DISPLAY"
-PIDFILE=/var/run/x11vnc.pid
+PIDFILE=/var/run/<%= @service %>.pid
 
 case "$1" in
   start)
-    start-stop-daemon --start --quiet --pidfile $PIDFILE --make-pidfile --background --exec $BINARY -- $ARGS
+    start-stop-daemon --start --quiet --pidfile $PIDFILE --chuid <%= @runuser %> --make-pidfile --background --exec $BINARY -- $ARGS
     ;;
   stop)
-    start-stop-daemon --stop --quiet --pidfile $PIDFILE
+    start-stop-daemon --stop --quiet --chuid <%= @runuser %> --pidfile $PIDFILE
     ;;
   restart)
     $0 stop
     $0 start
     ;;
+  status)
+    status_of_proc -p $PIDFILE $BINARY <%= @service %> && exit 0 || exit $?
+    ;;
   *)
-    echo "Usage: /etc/init.d/x11vnc {start|stop|restart}"
+    echo "Usage: $0 {start|stop|restart|status}"
     exit 1
 esac
 

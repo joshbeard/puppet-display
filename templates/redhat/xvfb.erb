@@ -8,27 +8,27 @@
 #              a backslash>
 
 ### BEGIN INIT INFO
-# Provides: 
-# Required-Start: 
-# Required-Stop: 
-# Should-Start: 
-# Should-Stop: 
-# Default-Start: 
-# Default-Stop: 
-# Short-Description: 
-# Description:      
+# Provides:
+# Required-Start:
+# Required-Stop:
+# Should-Start:
+# Should-Stop:
+# Default-Start:
+# Default-Stop:
+# Short-Description:
+# Description:
 ### END INIT INFO
 
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-DISPLAY=:<%= scope.lookupvar('display::display') %>
-WIDTH=<%=    scope.lookupvar('display::width')   %>
-HEIGHT=<%=   scope.lookupvar('display::height')  %>
-COLOR=<%=    scope.lookupvar('display::color')   %>
+DISPLAY=:<%= @display %>
+WIDTH=<%= @width %>
+HEIGHT=<%= @height %>
+COLOR=<%= @color %>
 
-ARGS="$DISPLAY -nolisten tcp -fbdir /var/run -screen 0 ${WIDTH}x${HEIGHT}x${COLOR}"
-exec="/usr/bin/Xvfb"
+ARGS="$DISPLAY -nolisten tcp -fbdir <%= @fbdir %> -screen 0 ${WIDTH}x${HEIGHT}x${COLOR}"
+exec="<%= @xvfb_bin %>"
 
 prog="Xvfb"
 #config="<path to major config file>"
@@ -42,7 +42,7 @@ start() {
 #    [ -f $config ] || exit 6
     echo -n $"Starting $prog: "
     # if not running, start it up here, usually something like "daemon $exec"
-    daemon "${exec} ${ARGS} > /dev/null 2>&1 &"
+    daemon --user '<%= @runuser %>' "${exec} ${ARGS} > /dev/null 2>&1 &"
     retval=$?
     echo
     [ $retval -eq 0 ] && touch $lockfile

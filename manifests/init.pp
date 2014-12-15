@@ -12,6 +12,36 @@
 #    Screen height to use. Default is 800.
 # [*color*]
 #    Screen color depth to use. Default is "24+32" (32 bit).
+# [*runuser*]
+#    User to run xvfb as. Default is 'root'.
+# [*fbdir*]
+#    Directory in which the memory mapped files containing the framebuffer
+#    memory should be created. Defaults to '/tmp'
+# [*xvfb_package*]
+#    Package name for installing xvfb. Defaults to 'xorg-x11-server-Xvfb' on
+#    RedHat systems and 'xvfb' on Debian systems.
+# [*xvfb_service*]
+#    Name of the xvfb service. This class will create an initscript with this
+#    name and manage a service with this name.  Defaults to 'xvfb'
+# [*xvfb_bin*]
+#    Absolute path to the 'xvfb' executable. Defaults to '/usr/bin/xvfb' on
+#    RedHat and Debian systems and '/usr/local/bin/Xvfb' on FreeBSD.
+# [*x11vnc_package*]
+#    Package name for installing x11vnc. Defaults to 'x11vnc' on RedHat and
+#    Debian systems.
+# [*x11vnc_service*]
+#    Name of the x11vnc service. This class will create an init script with
+#    this name and manage a service with this name.  Defaults to 'x11vnc'
+# [*x11vnc_bin*]
+#    Absolute path to the 'x11vnc' executable. Defaults to '/usr/bin/x11vnc' on
+#    RedHat and Debian systems and '/usr/local/bin/x11vnc' on FreeBSD.
+# [*display_env*]
+#    Boolean. Provide a profile.d script to export the DISPLAY variable.
+#    Defaults to true.
+# [*display_env_path*]
+#    Absolute path to place a profile.d script that exports the DISPLAY
+#    variable.  Defaults to '/etc/profile.d/vagrant_display.sh
+#    This is only effective if 'profiled' is true.
 #
 # === Examples
 #
@@ -30,15 +60,65 @@
 #
 # Copyright 2013 Alex Rodionov.
 #
-class display(
-  $display = 0,
-  $width   = 1280,
-  $height  = 768,
-  $color   = '24+32'
+class display (
+  $display          = $display::params::display,
+  $width            = $display::params::width,
+  $height           = $display::params::height,
+  $color            = $display::params::color,
+  $runuser          = $display::params::runuser,
+  $fbdir            = $display::params::fbdir,
+  $xvfb_package     = $display::params::xvfb_package_name,
+  $xvfb_service     = $display::params::xvfb_service_name,
+  $xvfb_bin         = $display::params::xvfb_bin,
+  $x11vnc_package   = $display::params::x11vnc_package_name,
+  $x11vnc_service   = $display::params::x11vnc_service_name,
+  $x11vnc_bin       = $display::params::x11vnc_bin,
+  $display_env      = true,
+  $display_env_path = undef,
 ) inherits display::params {
-  include env
-  include x11vnc
-  include xvfb
+  validate_re($display, '\d+')
+  validate_re($width, '\d+')
+  validate_re($height, '\d+')
+  validate_re($color, '\d{2}\+\d{2}')
+  validate_string($runuser)
+  validate_absolute_path($fbdir)
+  validate_string($xvfb_package)
+  validate_string($xvfb_service)
+  validate_absolute_path($xvfb_bin)
+  validate_string($x11vnc_package)
+  validate_string($x11vnc_service)
+  validate_absolute_path($x11vnc_bin)
+  validate_bool($display_env)
 
-  Class['xvfb'] -> Class['x11vnc'] -> Class['env']
+  if $display_env_path {
+    validate_absolute_path($display_env_path)
+  }
+
+  if $display_env {
+    class { 'display::env':
+      display => $display,
+      file    => $display_env_path,
+    }
+  }
+
+  class { 'display::xvfb':
+    display  => $display,
+    width    => $width,
+    height   => $height,
+    color    => $color,
+    runuser  => $runuser,
+    fbdir    => $fbdir,
+    package  => $xvfb_package,
+    service  => $xvfb_service,
+    xvfb_bin => $xvfb_bin,
+  }
+
+  class { 'display::x11vnc':
+    display    => $display,
+    x11vnc_bin => $x11vnc_bin,
+    package    => $x11vnc_package,
+    service    => $x11vnc_service,
+  }
+
+  Class['xvfb'] -> Class['x11vnc']
 }

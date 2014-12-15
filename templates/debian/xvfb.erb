@@ -1,27 +1,32 @@
 #!/bin/sh
 
-DISPLAY=:<%= scope.lookupvar('display::display') %>
-WIDTH=<%=    scope.lookupvar('display::width')   %>
-HEIGHT=<%=   scope.lookupvar('display::height')  %>
-COLOR=<%=    scope.lookupvar('display::color')   %>
+. /lib/lsb/init-functions
 
-XVFB=/usr/bin/Xvfb
-ARGS="$DISPLAY -nolisten tcp -fbdir /var/run -screen 0 ${WIDTH}x${HEIGHT}x${COLOR}"
-PIDFILE=/var/run/xvfb.pid
+DISPLAY=:<%= @display %>
+WIDTH=<%= @width %>
+HEIGHT=<%= @height %>
+COLOR=<%= @color %>
+
+XVFB=<%= @xvfb_bin %>
+ARGS="$DISPLAY -nolisten tcp -fbdir <%= @fbdir %> -screen 0 ${WIDTH}x${HEIGHT}x${COLOR}"
+PIDFILE=/var/run/<%= @service %>.pid
 
 case "$1" in
   start)
-    start-stop-daemon --start --quiet --pidfile $PIDFILE --make-pidfile --background --exec $XVFB -- $ARGS
+    start-stop-daemon --start --quiet --pidfile $PIDFILE --chuid <%= @runuser %> --make-pidfile --background --exec $XVFB -- $ARGS
     ;;
   stop)
-    start-stop-daemon --stop --quiet --pidfile $PIDFILE
+    start-stop-daemon --stop --quiet --user <%= @runuser %> --pidfile $PIDFILE
     ;;
   restart)
     $0 stop
     $0 start
     ;;
+  status)
+    status_of_proc -p $PIDFILE $XVFB <%= @service %> && exit 0 || exit $?
+  ;;
   *)
-    echo "Usage: /etc/init.d/xvfb {start|stop|restart}"
+    echo "Usage: $0 {start|stop|restart|status}"
     exit 1
 esac
 

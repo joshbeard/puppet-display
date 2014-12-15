@@ -8,24 +8,24 @@
 #              a backslash>
 
 ### BEGIN INIT INFO
-# Provides: 
+# Provides:
 # Required-Start: xvfb
-# Required-Stop: 
-# Should-Start: 
-# Should-Stop: 
-# Default-Start: 
-# Default-Stop: 
-# Short-Description: 
-# Description:      
+# Required-Stop:
+# Should-Start:
+# Should-Stop:
+# Default-Start:
+# Default-Stop:
+# Short-Description:
+# Description:
 ### END INIT INFO
 
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-DISPLAY=:<%= scope.lookupvar('display::display') %>
+DISPLAY=:<%= @display %>
 
 
-exec="/usr/bin/x11vnc"
+exec="<%= @x11vnc_bin %>"
 prog="x11vnc"
 ARGS="-forever -display $DISPLAY"
 #config="<path to major config file>"
@@ -39,7 +39,7 @@ start() {
 #    [ -f $config ] || exit 6
     echo -n $"Starting $prog: "
     # if not running, start it up here, usually something like "daemon $exec"
-    daemon "${exec} ${ARGS} > /dev/null 2>&1 &"
+    daemon --user '<%= @runuser %>' "${exec} ${ARGS} > /dev/null 2>&1 &"
     retval=$?
     echo
     [ $retval -eq 0 ] && touch $lockfile
