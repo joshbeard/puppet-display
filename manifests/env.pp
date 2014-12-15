@@ -22,6 +22,7 @@ class display::env (
   $display = $display::params::display,
 ) inherits display::params {
   validate_absolute_path($file)
+  validate_re($display, '\d+')
 
   concat { $file:
     owner => root,
