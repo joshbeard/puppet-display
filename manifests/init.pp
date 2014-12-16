@@ -54,11 +54,15 @@
 #
 # === Authors
 #
+# Joshua Beard <beard@puppetlabs.com>
 # Alex Rodionov <p0deje@gmail.com>
+# Joshua Hoblitt <jhoblitt@cpan.org>
 #
 # === Copyright
 #
-# Copyright 2013 Alex Rodionov.
+# Copyright (C) 2013-2014 Joshua Beard <beard@puppetlabs.com>
+# Copyright (C) 2013-2014 Alex Rodionov <p0deje@gmail.com>
+# Copyright (C) 2012-2014 Joshua Hoblitt <jhoblitt@cpan.org>
 #
 class display (
   $display          = $display::params::display,

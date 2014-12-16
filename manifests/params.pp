@@ -4,11 +4,14 @@
 #
 # === Authors
 #
+# Joshua Beard <beard@puppetlabs.com>
 # Joshua Hoblitt <jhoblitt@cpan.org>
 #
 # === Copyright
 #
-# Copyright 2013 Joshua Hoblitt
+# Copyright (C) 2013-2014 Joshua Beard <beard@puppetlabs.com>
+# Copyright (C) 2013-2014 Alex Rodionov <p0deje@gmail.com>
+# Copyright (C) 2012-2014 Joshua Hoblitt <jhoblitt@cpan.org>
 #
 class display::params {
   $lc_osfamily         = downcase($::osfamily)
