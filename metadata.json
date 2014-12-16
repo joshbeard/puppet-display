@@ -1,12 +1,12 @@
 {
   "author": "Josh Beard",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "name": "joshbeard-display",
   "project_page": "https://github.com/joshbeard/puppet-display",
   "source": "https://github.com/joshbeard/puppet-display",
   "summary": "Puppet module to manage Xvfb and x11vnc for remote displays",
   "version": "0.4.0",
-  "tags": ["xvfb","x11vnc","display","x","xorg"],
+  "tags": ["xvfb","x11vnc","display","x","xorg","vnc","selenium"],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
@@ -48,7 +48,7 @@
     },
     {
       "operatingsystem": "FreeBSD",
-      "operatingsystemmajrelease": [
+      "operatingsystemrelease": [
         "9",
         "10"
       ]
@@ -57,10 +57,10 @@
   "dependencies": [
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">= 1.0.0"
+      "version_requirement": ">= 1.0.0 <2.0.0"
     },
     { "name": "puppetlabs/stdlib",
-      "version_requirement":">= 3.2.0"
+      "version_requirement":">= 3.2.0 <5.0.0"
     }
   ]
 }
