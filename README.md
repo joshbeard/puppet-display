@@ -1,5 +1,7 @@
 ## puppet-display
 
+[![Build Status](https://travis-ci.org/joshbeard/puppet-display.svg?branch=master)](https://travis-ci.org/joshbeard/puppet-display)
+
 Module allows to connect to remote machine display using x11vnc + Xvfb.
 
 Created for easy workflow of Selenium tests in Vagrant.
