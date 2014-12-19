@@ -2,6 +2,10 @@
 #
 # Exports DISPLAY variable.
 #
+# NOTE: This class is being deprecated and is pending removal!
+#       The management of the DISPLAY environment variable should be managed
+#       elsewhere.
+#
 # === Parameters
 # [*file*]
 #   Absolute path to place the environment file, which exports DISPLAY.
@@ -27,6 +31,8 @@ class display::env (
 ) inherits display::params {
   validate_absolute_path($file)
   validate_re($display, '\d+')
+
+  notice('The display::env class is deprecated and is pending removal. Please use another method to manage the DISPLAY environment variable.')
 
   concat { $file:
     owner => root,
