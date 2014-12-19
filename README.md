@@ -1,6 +1,6 @@
 # puppet-display
 
-[![Build Status](https://travis-ci.org/joshbeard/puppet-display.svg?branch=master)](https://travis-ci.org/joshbeard/puppet-display)
+[![Build Status](https://img.shields.io/travis/joshbeard/puppet-display.svg?style=flat-square)](https://travis-ci.org/joshbeard/puppet-display)
 
 #### Table of Contents
 
