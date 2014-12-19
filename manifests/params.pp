@@ -1,6 +1,6 @@
 # == Class: display::params
 #
-# Display parameters.
+# Display parameters. Private class.
 #
 # === Authors
 #

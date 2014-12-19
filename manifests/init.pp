@@ -45,7 +45,7 @@
 #
 # === Examples
 #
-#  class {'display':
+#  class { 'display':
 #    display => 99,
 #    width   => 1024,
 #    height  => 768,
