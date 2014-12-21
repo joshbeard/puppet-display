@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe 'display::x11vnc', :type => :class do
 
-  context 'with default parameters' do
+  describe 'compiles with default parameters' do
     ['Debian', 'RedHat', 'FreeBSD'].each do |system|
-      describe "default parameters on #{system}" do
+      context "#{system}" do
         let(:facts) {{ :osfamily => system }}
         it do
           should contain_package('x11vnc').with({
@@ -18,7 +18,7 @@ describe 'display::x11vnc', :type => :class do
       end
     end
 
-    describe 'should create proper init script' do
+    describe 'creates proper init script' do
       ['Debian','RedHat'].each do |system|
         context "on #{system}" do
           let(:facts) {{ :osfamily => system }}

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'display', :type => :class do
   context 'when called with default parameters' do
-    describe 'on RedHat' do
+    context 'on RedHat' do
       let(:facts) {
         {
           :osfamily       => 'RedHat',
@@ -34,7 +34,7 @@ describe 'display', :type => :class do
 
       end
     end
-    describe 'on Debian' do
+    context 'on Debian' do
       let(:facts) {
         {
           :osfamily       => 'Debian',
@@ -54,7 +54,7 @@ describe 'display', :type => :class do
       end
     end
 
-    describe 'on FreeBSD' do
+    context 'on FreeBSD' do
       let(:facts) {
         {
         :osfamily       => 'FreeBSD',
@@ -80,7 +80,7 @@ describe 'display', :type => :class do
   end
 
   context 'when called with custom parameters' do
-    describe 'on RedHat' do
+    context 'on RedHat' do
       let(:facts) {
         {
           :osfamily       => 'RedHat',
@@ -126,7 +126,7 @@ describe 'display', :type => :class do
       end
     end
 
-    describe 'without display_env' do
+    context 'without display_env' do
       let(:facts) {
         {
           :osfamily       => 'RedHat',
@@ -137,7 +137,7 @@ describe 'display', :type => :class do
       it { should_not contain_class('display::env') }
     end
 
-    describe 'with custom display_env_path' do
+    context 'with custom display_env_path' do
       let(:facts) {
         {
           :osfamily       => 'RedHat',

@@ -5,7 +5,7 @@ describe 'display::xvfb', :type => :class do
   context 'with default parameters' do
 
     ['Debian', 'RedHat'].each do |system|
-      describe "on #{system}" do
+      context "on #{system}" do
         let(:facts) {{ :osfamily => system }}
         it do
           should contain_file('xvfb-init').with({
@@ -24,7 +24,7 @@ describe 'display::xvfb', :type => :class do
       end
     end
 
-    describe 'on RedHat' do
+    context 'on RedHat' do
       let(:facts) {{ :osfamily => 'RedHat' }}
       it do
         should contain_package('xvfb').with({
@@ -38,7 +38,7 @@ describe 'display::xvfb', :type => :class do
       end
     end
 
-    describe 'on Debian' do
+    context 'on Debian' do
       let(:facts) {{ :osfamily => 'Debian' }}
       it do
         should contain_package('xvfb').with({
@@ -55,7 +55,7 @@ describe 'display::xvfb', :type => :class do
       end
     end
 
-    describe 'on FreeBSD' do
+    context 'on FreeBSD' do
       let(:facts) {{ :osfamily => 'FreeBSD' }}
       it do
         should contain_package('xvfb').with({
@@ -102,7 +102,7 @@ describe 'display::xvfb', :type => :class do
     end
   end
 
-  context 'creates proper init script with custom params' do
+  describe 'creates proper init script with custom params' do
     let(:params) {{
       :display  => 21,
       :width    => 1024,
@@ -114,7 +114,7 @@ describe 'display::xvfb', :type => :class do
       :xvfb_bin => '/usr/local/myxvfb',
     }}
     ['Debian','RedHat'].each do |system|
-      describe "on #{system}" do
+      context "on #{system}" do
         let(:facts) {{ :osfamily => system }}
         context 'custom display' do
           it { should contain_file('xvfb-init').with_content(/^DISPLAY=:21$/) }
@@ -163,7 +163,7 @@ describe 'display::xvfb', :type => :class do
       end
     end
 
-    describe 'on FreeBSD' do
+    context 'on FreeBSD' do
       let(:facts) {{ :osfamily => 'FreeBSD' }}
       it do should contain_file('xvfb-init').with({
         :path => '/usr/local/etc/rc.d/xvfbcustom',
@@ -195,45 +195,45 @@ describe 'display::xvfb', :type => :class do
     end
   end
 
-  context 'should fail when invalid parameters are passed' do
+  describe 'should fail when invalid parameters are passed' do
     let(:facts) {{ :osfamily => 'RedHat' }}
-    describe 'display' do
+    context 'display' do
       let(:params) {{ :display => 'dstring' }}
       it 'should fail when its not an integer' do
         expect { subject }.to raise_error(Puppet::Error, /"dstring" does not match/)
       end
     end
-    describe 'width' do
+    context 'width' do
       let(:params) {{ :width => 'dwidth' }}
       it 'should fail when width is not an integer' do
         expect { subject }.to raise_error(Puppet::Error, /"dwidth" does not match/)
       end
     end
-    describe 'height' do
+    context 'height' do
       let(:params) {{ :height => 'dheight' }}
       it 'should fail when height is not an integer' do
         expect { subject }.to raise_error(Puppet::Error, /"dheight" does not match/)
       end
     end
-    describe 'color (x not +)' do
+    context 'color (x not +)' do
       let(:params) {{ :color => '16x16' }}
       it 'should fail when height is not an integer' do
         expect { subject }.to raise_error(Puppet::Error, /"16x16" does not match/)
       end
     end
-    describe 'fbdir' do
+    context 'fbdir' do
       let(:params) {{ :fbdir => 'awesome' }}
       it 'should fail when fbdir is not an absolute path' do
         expect { subject }.to raise_error(Puppet::Error, /"awesome" is not an absolute path/)
       end
     end
-    describe 'xvfb_bin' do
+    context 'xvfb_bin' do
       let(:params) {{ :xvfb_bin => 'myxvfbin' }}
       it 'should fail when xvfb_bin is not an absolute path' do
         expect { subject }.to raise_error(Puppet::Error, /"myxvfbin" is not an absolute path/)
       end
     end
-    describe 'service' do
+    context 'service' do
       let(:params) {{ :service => ['one'] }}
       it 'should fail when service is not a string' do
         expect { subject }.to raise_error(
@@ -241,7 +241,7 @@ describe 'display::xvfb', :type => :class do
         )
       end
     end
-    describe 'runuser' do
+    context 'runuser' do
       let(:params) {{ :runuser => ['reznor'] }}
       it 'should fail when runuser is not a string' do
         expect { subject }.to raise_error(
