@@ -124,5 +124,5 @@ class display (
     service    => $x11vnc_service,
   }
 
-  Class['xvfb'] -> Class['x11vnc']
+  Class['display::xvfb'] -> Class['display::x11vnc']
 }
