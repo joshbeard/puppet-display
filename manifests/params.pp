@@ -20,9 +20,9 @@ class display::params {
   $xvfb_erb            = "display/${lc_osfamily}/xvfb.erb"
   $x11vnc_erb          = "display/${lc_osfamily}/x11vnc.erb"
   $xvfb_service_name   = 'xvfb'
-  $display             = 0
-  $width               = 1280
-  $height              = 800
+  $display             = '0'
+  $width               = '1280'
+  $height              = '800'
   $color               = '24+32'
   $runuser             = 'root'
   $fbdir               = '/tmp'
