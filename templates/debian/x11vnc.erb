@@ -17,7 +17,11 @@
 DISPLAY=:<%= @display %>
 
 BINARY=<%= @x11vnc_bin %>
+<% if @custom_args -%>
+ARGS="<%= @custom_args %>"
+<% else -%>
 ARGS="-forever -display $DISPLAY"
+<% end -%>
 PIDFILE=/var/run/<%= @service %>.pid
 
 case "$1" in

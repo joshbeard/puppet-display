@@ -139,6 +139,15 @@ describe 'display::x11vnc', :type => :class do
             /^\s+daemon --user 'reznor'\s/
           )
         end
+
+        context 'with custom_args' do
+          let(:params) {{ :custom_args => 'FOO BAR BAZ' }}
+          it do
+            should contain_file('x11vnc-init').with_content(
+              /^ARGS="FOO BAR BAZ"$/
+            )
+          end
+        end
       end
 
       context 'on Debian' do
@@ -156,6 +165,14 @@ describe 'display::x11vnc', :type => :class do
           should contain_file('x11vnc-init').with_content(
             /^\s+status_of_proc.*x11vnccustom\s/
           )
+        end
+        context 'with custom_args' do
+          let(:params) {{ :custom_args => 'FOO BAR BAZ' }}
+          it do
+            should contain_file('x11vnc-init').with_content(
+              /^ARGS="FOO BAR BAZ"$/
+            )
+          end
         end
       end
 
@@ -184,6 +201,16 @@ describe 'display::x11vnc', :type => :class do
             /^\s+\/usr\/sbin\/daemon -u reznor\s/
           )
         end
+
+        context 'with custom_args' do
+          let(:params) {{ :custom_args => 'FOO BAR BAZ' }}
+          it do
+            should contain_file('x11vnc-init').with_content(
+              /^command_args="FOO BAR BAZ"$/
+            )
+          end
+        end
+
       end
     end
   end

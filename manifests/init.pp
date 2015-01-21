@@ -40,6 +40,11 @@
 # [*x11vnc_bin*]
 #    Absolute path to the 'x11vnc' executable. Defaults to '/usr/bin/x11vnc' on
 #    RedHat and Debian systems and '/usr/local/bin/x11vnc' on FreeBSD.
+# [*x11vnc_custom_args*]
+#    Custom arguments to use for starting x11vnc.  If this parameter is defined,
+#    the display parameter will be unused for x11vnc.  You'll have to pass that
+#    yourself via x11vnc_custom_args.
+#    Optional.  Defaults to undefined.
 # [*display_env*]
 #    Boolean. Provide a profile.d script to export the DISPLAY variable.
 #    Defaults to true.
@@ -70,21 +75,22 @@
 # Copyright (C) 2012-2014 Joshua Hoblitt <jhoblitt@cpan.org>
 #
 class display (
-  $display          = $display::params::display,
-  $width            = $display::params::width,
-  $height           = $display::params::height,
-  $color            = $display::params::color,
-  $runuser          = $display::params::runuser,
-  $fbdir            = $display::params::fbdir,
-  $xvfb_package     = $display::params::xvfb_package_name,
-  $xvfb_service     = $display::params::xvfb_service_name,
-  $xvfb_bin         = $display::params::xvfb_bin,
-  $xvfb_custom_args = undef,
-  $x11vnc_package   = $display::params::x11vnc_package_name,
-  $x11vnc_service   = $display::params::x11vnc_service_name,
-  $x11vnc_bin       = $display::params::x11vnc_bin,
-  $display_env      = true,
-  $display_env_path = undef,
+  $display            = $display::params::display,
+  $width              = $display::params::width,
+  $height             = $display::params::height,
+  $color              = $display::params::color,
+  $runuser            = $display::params::runuser,
+  $fbdir              = $display::params::fbdir,
+  $xvfb_package       = $display::params::xvfb_package_name,
+  $xvfb_service       = $display::params::xvfb_service_name,
+  $xvfb_bin           = $display::params::xvfb_bin,
+  $xvfb_custom_args   = undef,
+  $x11vnc_package     = $display::params::x11vnc_package_name,
+  $x11vnc_service     = $display::params::x11vnc_service_name,
+  $x11vnc_bin         = $display::params::x11vnc_bin,
+  $x11vnc_custom_args = undef,
+  $display_env        = true,
+  $display_env_path   = undef,
 ) inherits display::params {
   validate_re($display, '\d+')
   validate_re($width, '\d+')
@@ -102,6 +108,10 @@ class display (
 
   if $xvfb_custom_args {
     validate_string($xvfb_custom_args)
+  }
+
+  if $x11vnc_custom_args {
+    validate_string($x11vnc_custom_args)
   }
 
   if $display_env_path {
@@ -129,10 +139,11 @@ class display (
   }
 
   class { 'display::x11vnc':
-    display    => $display,
-    x11vnc_bin => $x11vnc_bin,
-    package    => $x11vnc_package,
-    service    => $x11vnc_service,
+    display     => $display,
+    x11vnc_bin  => $x11vnc_bin,
+    package     => $x11vnc_package,
+    service     => $x11vnc_service,
+    custom_args => $x11vnc_custom_args,
   }
 
   Class['display::xvfb'] -> Class['display::x11vnc']

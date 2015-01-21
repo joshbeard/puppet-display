@@ -154,6 +154,13 @@ class { 'display::x11vnc':
   Absolute path to the `x11vnc` executable. Defaults to `/usr/bin/x11vnc` on
   RedHat and Debian systems and `/usr/local/bin/x11vnc` on FreeBSD.
 
+#### `x11vnc_custom_args`
+
+  Custom arguments to use for starting x11vnc.  If this parameter is defined,
+  the display parameter is unused for starting x11vnc - that's left up to the
+  user.
+  Optional.  Defaults to undefined.
+
 #### `display_env`
 
   Boolean. Provide a profile.d script to export the `DISPLAY` variable.
@@ -238,6 +245,13 @@ class { 'display::x11vnc':
 
   Absolute path to the `x11vnc` executable. Defaults to `/usr/bin/x11vnc` on
   RedHat and Debian systems and `/usr/local/bin/x11vnc` on FreeBSD.
+
+#### `custom_args`
+
+  Custom arguments to use for starting x11vnc.  If this parameter is defined,
+  the display parameter is unused for starting x11vnc - that's left up to the
+  user.
+  Optional.  Defaults to undefined.
 
 #### Class: display::env
 

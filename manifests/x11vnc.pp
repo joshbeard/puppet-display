@@ -16,6 +16,10 @@
 #   name and manage a service by this name. Defaults to 'x11vnc'
 # [*runuser*]
 #   User to run xvfb as. Default is `'root'`
+# [*custom_args*]
+#    Specifies custom arguments to start x11vnc with.  This overrides the
+#    display paramter - you'll have to pass that yourself.
+#    String. Optional.  The default value is undefined (unused).
 #
 # === Authors
 #
@@ -30,17 +34,22 @@
 # Copyright (C) 2012-2014 Joshua Hoblitt <jhoblitt@cpan.org>
 #
 class display::x11vnc (
-  $display    = $display::params::display,
-  $x11vnc_bin = $display::params::x11vnc_bin,
-  $package    = $display::params::x11vnc_package_name,
-  $service    = $display::params::x11vnc_service_name,
-  $runuser    = $display::params::runuser,
+  $display     = $display::params::display,
+  $x11vnc_bin  = $display::params::x11vnc_bin,
+  $package     = $display::params::x11vnc_package_name,
+  $service     = $display::params::x11vnc_service_name,
+  $runuser     = $display::params::runuser,
+  $custom_args = undef,
 ) inherits display::params {
   validate_re($display, '\d+')
   validate_absolute_path($x11vnc_bin)
   validate_string($package)
   validate_string($service)
   validate_string($runuser)
+
+  if $custom_args {
+    validate_string($custom_args)
+  }
 
   package { 'x11vnc':
     ensure => present,

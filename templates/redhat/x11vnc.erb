@@ -27,7 +27,11 @@ DISPLAY=:<%= @display %>
 
 exec="<%= @x11vnc_bin %>"
 prog="x11vnc"
+<% if @custom_args -%>
+ARGS="<%= @custom_args %>"
+<% else -%>
 ARGS="-forever -display $DISPLAY"
+<% end -%>
 #config="<path to major config file>"
 
 #[ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
