@@ -24,6 +24,10 @@
 # [*service*]
 #    Name of the xvfb service. This class will create an initscript with this
 #    name and manage a service with this name.  Defaults to 'xvfb'
+# [*custom_args*]
+#    Specifies custom arguments to start xvfb with.  This overrides the
+#    display, width, height, color, and fbdir parameters.
+#    String. Optional.  The default value is undefined (unused).
 #
 # === Authors
 #
@@ -38,15 +42,16 @@
 # Copyright (C) 2012-2014 Joshua Hoblitt <jhoblitt@cpan.org>
 #
 class display::xvfb (
-  $display  = $display::params::display,
-  $width    = $display::params::width,
-  $height   = $display::params::height,
-  $color    = $display::params::color,
-  $runuser  = $display::params::runuser,
-  $fbdir    = $display::params::fbdir,
-  $package  = $display::params::xvfb_package_name,
-  $service  = $display::params::xvfb_service_name,
-  $xvfb_bin = $display::params::xvfb_bin,
+  $display     = $display::params::display,
+  $width       = $display::params::width,
+  $height      = $display::params::height,
+  $color       = $display::params::color,
+  $runuser     = $display::params::runuser,
+  $fbdir       = $display::params::fbdir,
+  $package     = $display::params::xvfb_package_name,
+  $service     = $display::params::xvfb_service_name,
+  $xvfb_bin    = $display::params::xvfb_bin,
+  $custom_args = undef,
 ) inherits display::params {
   validate_re($display, '\d+')
   validate_re($width, '\d+')
@@ -57,6 +62,10 @@ class display::xvfb (
   validate_string($package)
   validate_string($service)
   validate_absolute_path($xvfb_bin)
+
+  if $custom_args {
+    validate_string($custom_args)
+  }
 
   package { 'xvfb':
     ensure => present,

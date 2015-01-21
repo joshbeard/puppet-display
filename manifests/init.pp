@@ -26,6 +26,11 @@
 # [*xvfb_bin*]
 #    Absolute path to the 'xvfb' executable. Defaults to '/usr/bin/xvfb' on
 #    RedHat and Debian systems and '/usr/local/bin/Xvfb' on FreeBSD.
+# [*xvfb_custom_args*]
+#    Custom arguments to use for starting xvfb.  If this parameter is defined,
+#    the display, width, height, color, and fbdir parameter values will not
+#    be used for starting the xvfb service via the init script - that's left
+#    up to the user.  Optional.  Defaults to undefined.
 # [*x11vnc_package*]
 #    Package name for installing x11vnc. Defaults to 'x11vnc' on RedHat and
 #    Debian systems.
@@ -74,6 +79,7 @@ class display (
   $xvfb_package     = $display::params::xvfb_package_name,
   $xvfb_service     = $display::params::xvfb_service_name,
   $xvfb_bin         = $display::params::xvfb_bin,
+  $xvfb_custom_args = undef,
   $x11vnc_package   = $display::params::x11vnc_package_name,
   $x11vnc_service   = $display::params::x11vnc_service_name,
   $x11vnc_bin       = $display::params::x11vnc_bin,
@@ -94,6 +100,10 @@ class display (
   validate_absolute_path($x11vnc_bin)
   validate_bool($display_env)
 
+  if $xvfb_custom_args {
+    validate_string($xvfb_custom_args)
+  }
+
   if $display_env_path {
     validate_absolute_path($display_env_path)
   }
@@ -106,15 +116,16 @@ class display (
   }
 
   class { 'display::xvfb':
-    display  => $display,
-    width    => $width,
-    height   => $height,
-    color    => $color,
-    runuser  => $runuser,
-    fbdir    => $fbdir,
-    package  => $xvfb_package,
-    service  => $xvfb_service,
-    xvfb_bin => $xvfb_bin,
+    display     => $display,
+    width       => $width,
+    height      => $height,
+    color       => $color,
+    runuser     => $runuser,
+    fbdir       => $fbdir,
+    package     => $xvfb_package,
+    service     => $xvfb_service,
+    xvfb_bin    => $xvfb_bin,
+    custom_args => $xvfb_custom_args,
   }
 
   class { 'display::x11vnc':

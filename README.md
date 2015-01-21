@@ -132,6 +132,13 @@ class { 'display::x11vnc':
   Absolute path to the `xvfb` executable. Defaults to `/usr/bin/xvfb` on
   RedHat and Debian systems and `/usr/local/bin/Xvfb` on FreeBSD.
 
+#### `xvfb_custom_args`
+
+  Custom arguments to use for starting xvfb.  If this parameter is defined,
+  the display, width, height, color, and fbdir parameter values will not
+  be used for starting the xvfb service via the init script - that's left
+  up to the user.  Optional.  Defaults to undefined.
+
 #### `x11vnc_package`
 
   Package name for installing x11vnc. Defaults to `x11vnc` on RedHat and
@@ -194,6 +201,13 @@ class { 'display::x11vnc':
 
   Package name for installing xvfb. Defaults to `xorg-x11-servers-Xvfb` on
   RedHat systems and `xvfb` on Debian systems.
+
+#### `custom_args`
+
+  Custom arguments to use for starting xvfb.  If this parameter is defined,
+  the display, width, height, color, and fbdir parameter values will not
+  be used for starting the xvfb service via the init script - that's left
+  up to the user.  Optional.  Defaults to undefined.
 
 #### `service`
 

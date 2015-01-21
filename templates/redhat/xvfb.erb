@@ -27,7 +27,12 @@ WIDTH=<%= @width %>
 HEIGHT=<%= @height %>
 COLOR=<%= @color %>
 
+XVFB=<%= @xvfb_bin %>
+<% if @custom_args -%>
+ARGS="<%= @custom_args %>"
+<% else -%>
 ARGS="$DISPLAY -nolisten tcp -fbdir <%= @fbdir %> -screen 0 ${WIDTH}x${HEIGHT}x${COLOR}"
+<% end -%>
 exec="<%= @xvfb_bin %>"
 
 prog="Xvfb"
