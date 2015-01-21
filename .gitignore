@@ -4,4 +4,5 @@ vendor/
 spec/fixtures/
 .vagrant/
 .bundle/
+.vendor/
 coverage/
