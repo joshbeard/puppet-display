@@ -90,38 +90,42 @@ describe 'display', :type => :class do
 
       let(:params) {
         {
-          :display        => 30,
-          :width          => 1024,
-          :height         => 768,
-          :color          => '16+24',
-          :runuser        => 'test',
-          :fbdir          => '/tmp/fbdir',
-          :xvfb_package   => 'xvfb_testpkg',
-          :xvfb_service   => 'xvfb_testsvc',
-          :xvfb_bin       => '/usr/bin/xvfb_testbin',
-          :x11vnc_package => 'x11vnc_testpkg',
-          :x11vnc_service => 'x11vnc_testsvc',
-          :x11vnc_bin     => '/usr/bin/x11vnc_testbin',
+          :display            => 30,
+          :width              => 1024,
+          :height             => 768,
+          :color              => '16+24',
+          :runuser            => 'test',
+          :fbdir              => '/tmp/fbdir',
+          :xvfb_package       => 'xvfb_testpkg',
+          :xvfb_service       => 'xvfb_testsvc',
+          :xvfb_bin           => '/usr/bin/xvfb_testbin',
+          :xvfb_custom_args   => 'FOO BAR BAZ',
+          :x11vnc_package     => 'x11vnc_testpkg',
+          :x11vnc_service     => 'x11vnc_testsvc',
+          :x11vnc_bin         => '/usr/bin/x11vnc_testbin',
+          :x11vnc_custom_args => 'FOO BAR BAZ',
         }
       }
 
       it do
         should contain_class('display::xvfb').with({
-          'display'  => 30,
-          'width'    => 1024,
-          'height'   => 768,
-          'color'    => '16+24',
-          'runuser'  => 'test',
-          'fbdir'    => '/tmp/fbdir',
-          'package'  => 'xvfb_testpkg',
-          'service'  => 'xvfb_testsvc',
-          'xvfb_bin' => '/usr/bin/xvfb_testbin',
+          'display'     => 30,
+          'width'       => 1024,
+          'height'      => 768,
+          'color'       => '16+24',
+          'runuser'     => 'test',
+          'fbdir'       => '/tmp/fbdir',
+          'package'     => 'xvfb_testpkg',
+          'service'     => 'xvfb_testsvc',
+          'xvfb_bin'    => '/usr/bin/xvfb_testbin',
+          'custom_args' => 'FOO BAR BAZ',
         })
         should contain_class('display::x11vnc').with({
-          'display'    => 30,
-          'x11vnc_bin' => '/usr/bin/x11vnc_testbin',
-          'package'    => 'x11vnc_testpkg',
-          'service'    => 'x11vnc_testsvc',
+          'display'     => 30,
+          'x11vnc_bin'  => '/usr/bin/x11vnc_testbin',
+          'package'     => 'x11vnc_testpkg',
+          'service'     => 'x11vnc_testsvc',
+          'custom_args' => 'FOO BAR BAZ',
         })
       end
     end
