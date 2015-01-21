@@ -183,6 +183,14 @@ describe 'display::xvfb', :type => :class do
           /^command_args=":21 -nolisten tcp -fbdir \/awesome -screen 0 1024x768x16\+16"$/
         )}
       end
+      context 'custom arguments' do
+        let(:params) {{
+          :custom_args => 'FOO BAR BAZ',
+        }}
+        it { should contain_file('xvfb-init').with_content(
+          /^command_args="FOO BAR BAZ"$/
+        )}
+      end
       context 'custom xvfb_bin' do
         it { should contain_file('xvfb-init').with_content(
           /^command="\/usr\/local\/myxvfb"/
