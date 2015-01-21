@@ -128,6 +128,15 @@ describe 'display::xvfb', :type => :class do
         context 'custom color' do
           it { should contain_file('xvfb-init').with_content(/^COLOR=16\+16$/) }
         end
+        context 'default arguments' do
+          it { should contain_file('xvfb-init').with_content(/^ARGS=\"\$DISPLAY -nolisten tcp -fbdir \/awesome -screen 0 \${WIDTH}x\${HEIGHT}x\${COLOR}\"$/) }
+        end
+        context 'custom arguments' do
+          let(:params) {{
+            :custom_args => 'FOO BAR BAZ',
+          }}
+          it { should contain_file('xvfb-init').with_content(/^ARGS="FOO BAR BAZ"$/) }
+        end
 
         it do should contain_file('xvfb-init').with({
           :path => '/etc/init.d/xvfbcustom',
