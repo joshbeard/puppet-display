@@ -217,43 +217,43 @@ describe 'display::xvfb', :type => :class do
     context 'display' do
       let(:params) {{ :display => 'dstring' }}
       it 'should fail when its not an integer' do
-        expect { subject }.to raise_error(Puppet::Error, /"dstring" does not match/)
+        should raise_error(Puppet::Error, /"dstring" does not match/)
       end
     end
     context 'width' do
       let(:params) {{ :width => 'dwidth' }}
       it 'should fail when width is not an integer' do
-        expect { subject }.to raise_error(Puppet::Error, /"dwidth" does not match/)
+        should raise_error(Puppet::Error, /"dwidth" does not match/)
       end
     end
     context 'height' do
       let(:params) {{ :height => 'dheight' }}
       it 'should fail when height is not an integer' do
-        expect { subject }.to raise_error(Puppet::Error, /"dheight" does not match/)
+        should raise_error(Puppet::Error, /"dheight" does not match/)
       end
     end
     context 'color (x not +)' do
       let(:params) {{ :color => '16x16' }}
       it 'should fail when height is not an integer' do
-        expect { subject }.to raise_error(Puppet::Error, /"16x16" does not match/)
+        should raise_error(Puppet::Error, /"16x16" does not match/)
       end
     end
     context 'fbdir' do
       let(:params) {{ :fbdir => 'awesome' }}
       it 'should fail when fbdir is not an absolute path' do
-        expect { subject }.to raise_error(Puppet::Error, /"awesome" is not an absolute path/)
+        should raise_error(Puppet::Error, /"awesome" is not an absolute path/)
       end
     end
     context 'xvfb_bin' do
       let(:params) {{ :xvfb_bin => 'myxvfbin' }}
       it 'should fail when xvfb_bin is not an absolute path' do
-        expect { subject }.to raise_error(Puppet::Error, /"myxvfbin" is not an absolute path/)
+        should raise_error(Puppet::Error, /"myxvfbin" is not an absolute path/)
       end
     end
     context 'service' do
       let(:params) {{ :service => ['one'] }}
       it 'should fail when service is not a string' do
-        expect { subject }.to raise_error(
+        should raise_error(
           Puppet::Error, /\["one"\] is not a string/
         )
       end
@@ -261,7 +261,7 @@ describe 'display::xvfb', :type => :class do
     context 'runuser' do
       let(:params) {{ :runuser => ['reznor'] }}
       it 'should fail when runuser is not a string' do
-        expect { subject }.to raise_error(
+        should raise_error(
           Puppet::Error, /\["reznor"\] is not a string/
         )
       end

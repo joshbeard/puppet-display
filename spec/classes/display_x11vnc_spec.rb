@@ -220,19 +220,19 @@ describe 'display::x11vnc', :type => :class do
     describe 'display' do
       let(:params) {{ :display => 'dstring' }}
       it 'should fail when its not an integer' do
-        expect { subject }.to raise_error(Puppet::Error, /"dstring" does not match/)
+        should raise_error(Puppet::Error, /"dstring" does not match/)
       end
     end
     describe 'x11vnc_bin' do
       let(:params) {{ :x11vnc_bin => 'myx11vncbin' }}
       it 'should fail when x11vnc_bin is not an absolute path' do
-        expect { subject }.to raise_error(Puppet::Error, /"myx11vncbin" is not an absolute path/)
+        should raise_error(Puppet::Error, /"myx11vncbin" is not an absolute path/)
       end
     end
     describe 'service' do
       let(:params) {{ :service => ['one'] }}
       it 'should fail when service is not a string' do
-        expect { subject }.to raise_error(
+        should raise_error(
           Puppet::Error, /\["one"\] is not a string/
         )
       end
@@ -240,7 +240,7 @@ describe 'display::x11vnc', :type => :class do
     describe 'runuser' do
       let(:params) {{ :runuser => ['reznor'] }}
       it 'should fail when runuser is not a string' do
-        expect { subject }.to raise_error(
+        should raise_error(
           Puppet::Error, /\["reznor"\] is not a string/
         )
       end

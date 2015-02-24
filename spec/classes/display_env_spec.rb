@@ -37,13 +37,13 @@ describe 'display::env', :type => :class do
     describe 'not an absolute path' do
       let(:params) {{ :file => 'blah' }}
       it 'should fail when file is not an absolute path' do
-        expect { subject }.to raise_error(Puppet::Error, /"blah" is not an absolute path/)
+        should raise_error(Puppet::Error, /"blah" is not an absolute path/)
       end
     end
     describe 'display is not an integer' do
       let(:params) {{ :display => 'halb' }}
       it 'should fail when its not an integer' do
-        expect { subject }.to raise_error(Puppet::Error, /"halb" does not match/)
+        should raise_error(Puppet::Error, /"halb" does not match/)
       end
     end
   end

@@ -162,7 +162,7 @@ describe 'display', :type => :class do
   context 'on an unsupported osfamily' do
     let(:facts) {{ :osfamily => 'Windows' }}
     it 'should fail when osfamily is windows' do
-      expect { subject }.to raise_error(
+      should raise_error(
         Puppet::Error, /Module display is not supported on Windows/
       )
     end
