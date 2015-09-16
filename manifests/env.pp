@@ -30,7 +30,7 @@ class display::env (
   $display = $display::params::display,
 ) inherits display::params {
   validate_absolute_path($file)
-  validate_re($display, '\d+')
+  validate_integer($display)
 
   notice('The display::env class is deprecated and is pending removal. Please use another method to manage the DISPLAY environment variable.')
 

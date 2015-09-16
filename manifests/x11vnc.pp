@@ -41,7 +41,7 @@ class display::x11vnc (
   $runuser     = $display::params::runuser,
   $custom_args = undef,
 ) inherits display::params {
-  validate_re($display, '\d+')
+  validate_integer($display)
   validate_absolute_path($x11vnc_bin)
   validate_string($package)
   validate_string($service)

@@ -217,19 +217,19 @@ describe 'display::xvfb', :type => :class do
     context 'display' do
       let(:params) {{ :display => 'dstring' }}
       it 'should fail when its not an integer' do
-        should raise_error(Puppet::Error, /"dstring" does not match/)
+        should raise_error(Puppet::Error)
       end
     end
     context 'width' do
       let(:params) {{ :width => 'dwidth' }}
       it 'should fail when width is not an integer' do
-        should raise_error(Puppet::Error, /"dwidth" does not match/)
+        should raise_error(Puppet::Error)
       end
     end
     context 'height' do
       let(:params) {{ :height => 'dheight' }}
       it 'should fail when height is not an integer' do
-        should raise_error(Puppet::Error, /"dheight" does not match/)
+        should raise_error(Puppet::Error)
       end
     end
     context 'color (x not +)' do

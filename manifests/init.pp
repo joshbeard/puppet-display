@@ -92,9 +92,10 @@ class display (
   $display_env        = true,
   $display_env_path   = undef,
 ) inherits display::params {
-  validate_re($display, '\d+')
-  validate_re($width, '\d+')
-  validate_re($height, '\d+')
+  require stdlib
+  validate_integer($display)
+  validate_integer($width)
+  validate_integer($height)
   validate_re($color, '\d{2}\+\d{2}')
   validate_string($runuser)
   validate_absolute_path($fbdir)
