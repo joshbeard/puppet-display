@@ -53,9 +53,10 @@ class display::xvfb (
   $xvfb_bin    = $display::params::xvfb_bin,
   $custom_args = undef,
 ) inherits display::params {
-  validate_re($display, '\d+')
-  validate_re($width, '\d+')
-  validate_re($height, '\d+')
+  include stdlib
+  validate_integer($display)
+  validate_integer($width)
+  validate_integer($height)
   validate_re($color, '\d{2}\+\d{2}')
   validate_string($runuser)
   validate_absolute_path($fbdir)

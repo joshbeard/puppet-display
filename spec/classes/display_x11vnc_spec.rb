@@ -220,7 +220,7 @@ describe 'display::x11vnc', :type => :class do
     describe 'display' do
       let(:params) {{ :display => 'dstring' }}
       it 'should fail when its not an integer' do
-        should raise_error(Puppet::Error, /"dstring" does not match/)
+        should raise_error(Puppet::Error)
       end
     end
     describe 'x11vnc_bin' do

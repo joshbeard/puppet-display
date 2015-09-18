@@ -43,7 +43,7 @@ describe 'display::env', :type => :class do
     describe 'display is not an integer' do
       let(:params) {{ :display => 'halb' }}
       it 'should fail when its not an integer' do
-        should raise_error(Puppet::Error, /"halb" does not match/)
+        should raise_error(Puppet::Error)
       end
     end
   end
