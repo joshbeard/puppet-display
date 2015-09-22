@@ -12,9 +12,3 @@ task :default => [
   :lint,
   :spec,
 ]
-
-## Why not
-task :future do |args|
-  PuppetSyntax.future_parser = true
-  Rake::Task[:syntax].invoke
-end
