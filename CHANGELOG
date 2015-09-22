@@ -1,3 +1,6 @@
+unreleased
+  * Update spec tests for Puppet 4
+
 0.5.1 (2015-09-21)
   * Improvements to integer validation (#2) @scarby
 
