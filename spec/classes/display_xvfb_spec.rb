@@ -15,7 +15,7 @@ describe 'display::xvfb', :type => :class do
             'name' => 'xvfb',
           })
 
-          should contain_file('xvfb-init').with_content(/^DISPLAY=:0$/)
+          should contain_file('xvfb-init').with_content(/^DISPLAY=":0"$/)
           should contain_file('xvfb-init').with_content(/^WIDTH=1280$/)
           should contain_file('xvfb-init').with_content(/^HEIGHT=800$/)
           should contain_file('xvfb-init').with_content(/^COLOR=24\+32$/)
@@ -117,7 +117,7 @@ describe 'display::xvfb', :type => :class do
       context "on #{system}" do
         let(:facts) {{ :osfamily => system }}
         context 'custom display' do
-          it { should contain_file('xvfb-init').with_content(/^DISPLAY=:21$/) }
+          it { should contain_file('xvfb-init').with_content(/^DISPLAY=":21"$/) }
         end
         context 'custom width' do
           it { should contain_file('xvfb-init').with_content(/^WIDTH=1024$/) }

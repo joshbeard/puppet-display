@@ -27,7 +27,7 @@ describe 'display::x11vnc', :type => :class do
               :path => '/etc/init.d/x11vnc',
             })
             should contain_file('x11vnc-init').with_content(
-              /^DISPLAY=:0$/
+              /^DISPLAY=":0"$/
             )
           end
         end

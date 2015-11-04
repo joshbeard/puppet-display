@@ -14,7 +14,7 @@
 
 . /lib/lsb/init-functions
 
-DISPLAY=:<%= @display %>
+DISPLAY=":<%= @display %>"
 
 BINARY=<%= @x11vnc_bin %>
 <% if @custom_args -%>
