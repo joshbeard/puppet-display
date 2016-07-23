@@ -1,3 +1,6 @@
+0.5.3 (2016-07-22)
+  * Update metadata - concat dependency version (#4)
+
 0.5.2 (2015-11-04)
   * Update spec tests for Puppet 4
   * Fix init script quoting of commands and output

@@ -5,7 +5,7 @@
   "project_page": "https://github.com/joshbeard/puppet-display",
   "source": "https://github.com/joshbeard/puppet-display",
   "summary": "Puppet module to manage Xvfb and x11vnc for remote displays",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "tags": ["xvfb","x11vnc","display","x","xorg","vnc","selenium"],
   "operatingsystem_support": [
     {
@@ -57,7 +57,7 @@
   "dependencies": [
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">= 1.0.0 <2.0.0"
+      "version_requirement": ">= 1.1.1 <3.0.0"
     },
     { "name": "puppetlabs/stdlib",
       "version_requirement":">= 4.9.0 <5.0.0"
