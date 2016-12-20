@@ -52,6 +52,9 @@
 #    Absolute path to place a profile.d script that exports the DISPLAY
 #    variable.  Defaults to '/etc/profile.d/vagrant_display.sh
 #    This is only effective if 'profiled' is true.
+# [*refresh_systemd*]
+#   on systemd based systems a `systemctl daeomon-reload` is triggered before
+#   the corresponding service ist started or restarted. 
 #
 # === Examples
 #
@@ -91,6 +94,7 @@ class display (
   $x11vnc_custom_args = undef,
   $display_env        = true,
   $display_env_path   = undef,
+  $refresh_systemd    = $display::params::refresh_systemd,
 ) inherits display::params {
   require stdlib
   validate_integer($display)
@@ -106,6 +110,7 @@ class display (
   validate_string($x11vnc_service)
   validate_absolute_path($x11vnc_bin)
   validate_bool($display_env)
+  validate_bool($refresh_systemd)
 
   if $xvfb_custom_args {
     validate_string($xvfb_custom_args)
@@ -137,6 +142,7 @@ class display (
     service     => $xvfb_service,
     xvfb_bin    => $xvfb_bin,
     custom_args => $xvfb_custom_args,
+    refresh_systemd => $refresh_systemd,
   }
 
   class { 'display::x11vnc':
@@ -145,6 +151,7 @@ class display (
     package     => $x11vnc_package,
     service     => $x11vnc_service,
     custom_args => $x11vnc_custom_args,
+    refresh_systemd => $refresh_systemd,
   }
 
   Class['display::xvfb'] -> Class['display::x11vnc']

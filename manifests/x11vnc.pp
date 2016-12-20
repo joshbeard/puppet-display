@@ -14,6 +14,9 @@
 # [*service*]
 #   Name of the x11vnc service.  This class will create an init script with the
 #   name and manage a service by this name. Defaults to 'x11vnc'
+# [*refresh_systemd*]
+#   on systemd based systems a `systemctl daeomon-reload` is triggered before
+#   the corresponding service ist started or restarted. 
 # [*runuser*]
 #   User to run xvfb as. Default is `'root'`
 # [*custom_args*]
@@ -34,12 +37,13 @@
 # Copyright (C) 2012-2014 Joshua Hoblitt <jhoblitt@cpan.org>
 #
 class display::x11vnc (
-  $display     = $display::params::display,
-  $x11vnc_bin  = $display::params::x11vnc_bin,
-  $package     = $display::params::x11vnc_package_name,
-  $service     = $display::params::x11vnc_service_name,
-  $runuser     = $display::params::runuser,
-  $custom_args = undef,
+  $display         = $display::params::display,
+  $x11vnc_bin      = $display::params::x11vnc_bin,
+  $package         = $display::params::x11vnc_package_name,
+  $service         = $display::params::x11vnc_service_name,
+  $refresh_systemd = $display::params::refresh_systemd,
+  $runuser         = $display::params::runuser,
+  $custom_args     = undef,
 ) inherits display::params {
   validate_integer($display)
   validate_absolute_path($x11vnc_bin)
@@ -62,6 +66,16 @@ class display::x11vnc (
     content => template($display::params::x11vnc_erb),
     mode    => '0755',
     require => Package['x11vnc'],
+  }
+
+  if ($refresh_systemd) {
+    exec { 'refresh_systemd x11vnc':
+      subscribe => File['x11vnc-init'],
+      command => 'systemctl daemon-reload',
+      refreshonly => true,
+      path   => $::path,
+    } ~>
+    Service ['x11vnc']
   }
 
   service { 'x11vnc':

@@ -24,6 +24,9 @@
 # [*service*]
 #    Name of the xvfb service. This class will create an initscript with this
 #    name and manage a service with this name.  Defaults to 'xvfb'
+# [*refresh_systemd*]
+#   on systemd based systems a `systemctl daeomon-reload` is triggered before
+#   the corresponding service ist started or restarted. 
 # [*custom_args*]
 #    Specifies custom arguments to start xvfb with.  This overrides the
 #    display, width, height, color, and fbdir parameters.
@@ -50,6 +53,7 @@ class display::xvfb (
   $fbdir       = $display::params::fbdir,
   $package     = $display::params::xvfb_package_name,
   $service     = $display::params::xvfb_service_name,
+  $refresh_systemd = $display::params::refresh_systemd,
   $xvfb_bin    = $display::params::xvfb_bin,
   $custom_args = undef,
 ) inherits display::params {
@@ -81,10 +85,21 @@ class display::xvfb (
     require => Package['xvfb'],
   }
 
+  if ($refresh_systemd) {
+    exec { 'refresh_systemd xvfb':
+      subscribe => File['xvfb-init'],
+      command => 'systemctl daemon-reload',
+      refreshonly => true,
+      path   => $::path,
+    } ~>
+    Service ['xvfb']
+  }
+
   service { 'xvfb':
     ensure    => running,
     name      => $service,
     enable    => true,
     subscribe => File['xvfb-init'],
   }
+  
 }
