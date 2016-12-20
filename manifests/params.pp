@@ -33,18 +33,24 @@ class display::params {
       $xvfb_bin          = '/usr/bin/Xvfb'
       $x11vnc_bin        = '/usr/bin/x11vnc'
       $init_path         = '/etc/init.d'
+
+      $refresh_systemd   = (versioncmp($::operatingsystemrelease, '7.0') >= 0)
     }
     'debian': {
       $xvfb_package_name = 'xvfb'
       $xvfb_bin          = '/usr/bin/Xvfb'
       $x11vnc_bin        = '/usr/bin/x11vnc'
       $init_path         = '/etc/init.d'
+
+      $refresh_systemd   = (versioncmp($::operatingsystemrelease, '8.0') >= 0)
     }
     'freebsd': {
       $xvfb_package_name = 'xorg-vfbserver'
       $xvfb_bin          = '/usr/local/bin/Xvfb'
       $x11vnc_bin        = '/usr/local/bin/x11vnc'
       $init_path         = '/usr/local/etc/rc.d'
+
+      $refresh_systemd   = false
     }
     default: {
       fail("Module ${module_name} is not supported on ${::osfamily}")
