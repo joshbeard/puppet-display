@@ -92,7 +92,7 @@ class display::xvfb (
       refreshonly => true,
       path   => $::path,
     } ~>
-    Service ['xvfb']
+    Service['xvfb']
   }
 
   service { 'xvfb':
