@@ -75,7 +75,7 @@ class display::x11vnc (
       refreshonly => true,
       path   => $::path,
     } ~>
-    Service ['x11vnc']
+    Service['x11vnc']
   }
 
   service { 'x11vnc':
