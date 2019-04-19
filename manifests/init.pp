@@ -132,25 +132,25 @@ class display (
   }
 
   class { 'display::xvfb':
-    display     => $display,
-    width       => $width,
-    height      => $height,
-    color       => $color,
-    runuser     => $runuser,
-    fbdir       => $fbdir,
-    package     => $xvfb_package,
-    service     => $xvfb_service,
-    xvfb_bin    => $xvfb_bin,
-    custom_args => $xvfb_custom_args,
+    display         => $display,
+    width           => $width,
+    height          => $height,
+    color           => $color,
+    runuser         => $runuser,
+    fbdir           => $fbdir,
+    package         => $xvfb_package,
+    service         => $xvfb_service,
+    xvfb_bin        => $xvfb_bin,
+    custom_args     => $xvfb_custom_args,
     refresh_systemd => $refresh_systemd,
   }
 
   class { 'display::x11vnc':
-    display     => $display,
-    x11vnc_bin  => $x11vnc_bin,
-    package     => $x11vnc_package,
-    service     => $x11vnc_service,
-    custom_args => $x11vnc_custom_args,
+    display         => $display,
+    x11vnc_bin      => $x11vnc_bin,
+    package         => $x11vnc_package,
+    service         => $x11vnc_service,
+    custom_args     => $x11vnc_custom_args,
     refresh_systemd => $refresh_systemd,
   }
 

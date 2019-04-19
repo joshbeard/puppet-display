@@ -87,12 +87,12 @@ class display::xvfb (
 
   if ($refresh_systemd) {
     exec { 'refresh_systemd xvfb':
-      subscribe => File['xvfb-init'],
-      command => 'systemctl daemon-reload',
+      subscribe   => File['xvfb-init'],
+      command     => 'systemctl daemon-reload',
       refreshonly => true,
-      path   => $::path,
-    } ~>
-    Service ['xvfb']
+      path        => $::path,
+    }
+    ~> Service['xvfb']
   }
 
   service { 'xvfb':
@@ -101,5 +101,4 @@ class display::xvfb (
     enable    => true,
     subscribe => File['xvfb-init'],
   }
-  
 }

@@ -70,12 +70,12 @@ class display::x11vnc (
 
   if ($refresh_systemd) {
     exec { 'refresh_systemd x11vnc':
-      subscribe => File['x11vnc-init'],
-      command => 'systemctl daemon-reload',
+      subscribe   => File['x11vnc-init'],
+      command     => 'systemctl daemon-reload',
       refreshonly => true,
-      path   => $::path,
-    } ~>
-    Service ['x11vnc']
+      path        => $::path,
+    }
+    ~> Service['x11vnc']
   }
 
   service { 'x11vnc':
