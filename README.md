@@ -1,5 +1,11 @@
 # puppet-display
 
+__NOTICE:__ This project is dormant and looking for a new owner.
+If you would like to assume the role of maintaining this project, please get in
+touch with <josh@joshbeard.me>
+
+---
+
 [![Build Status](https://img.shields.io/travis/joshbeard/puppet-display.svg?style=flat-square)](https://travis-ci.org/joshbeard/puppet-display)
 
 #### Table of Contents
